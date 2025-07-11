@@ -4,8 +4,10 @@ import dbConnect from "./config/dbConnect.js";
 import route from "./routes/routes.js";
 import authRoutes from "./routes/auth.js";
 import authorize from "./middleware/authorize.js";
+import cors from "cors";
 
 
+app.use(cors());
 dotenv.config();
 dbConnect();
 const app=express();
