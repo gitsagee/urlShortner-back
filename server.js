@@ -1,0 +1,21 @@
+import express from "express";
+import dotenv from "dotenv";
+import dbConnect from "./config/dbConnect.js";
+import route from "./routes/routes.js";
+import authRoutes from "./routes/auth.js";
+import authorize from "./middleware/authorize.js";
+
+
+dotenv.config();
+dbConnect();
+const app=express();
+app.use(express.json());
+app.use("/auth",authRoutes);
+app.use("/",authorize,route);
+app.listen(process.env.PORT,(err)=>{
+    if(err){
+        console.log(err);
+    }else{
+        console.log(`server connected at ${process.env.PORT}`);
+    }
+})
