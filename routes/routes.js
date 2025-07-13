@@ -6,14 +6,14 @@ const route = express.Router();
 route.get('/favicon.ico', (req, res) => res.status(204).end());
 
 route.get('/:id',async (req,res)=>{
-    const id=req.user.id;
+    
     const newUrl=req.params.id;
     if(!newUrl){
         return res.status(400).json({error :"url required"})
     }
     console.log(newUrl);
     const foundUrl= await url.findOne({newUrl});
-    if(!foundUrl || foundUrl.owner!=id){
+    if(!foundUrl ){
         return res.status(400).json({error :"url not found"});
     }
     foundUrl.clickedTimes+=1;
