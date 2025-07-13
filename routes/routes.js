@@ -1,5 +1,6 @@
 import express from "express";
 import url from "../models/urlSchema.js";
+import authorize from "../middleware/authorize.js";
 
 const route = express.Router();
 route.get('/favicon.ico', (req, res) => res.status(204).end());
@@ -20,7 +21,7 @@ route.get('/:id',async (req,res)=>{
     return res.status(200).redirect(foundUrl.url);
     
 })
-route.post('/',async (req,res)=>{
+route.post('/',authorize,async (req,res)=>{
     const id=req.user.id;
     const {originalUrl}=req.body;
     if (!originalUrl) {
